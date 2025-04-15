@@ -1,17 +1,30 @@
 module c3test;
 import std::io;
 
-fn void test(String args)
+
+fn void increment(int *x)
 {
-	io::printn(args);
+	(*x)++;
 }
 
 fn int main(String[] args)
 {
-	int[*] arr = {1, 2, 3, 4, 5};
-	foreach (i : arr)
+	int[5] arr = { };
+
+	foreach (idx, &i : arr)
 	{
-		io::printfn("item : %s", &i);
+		*i = 11 + (int) idx;
+		io::printfn("item : %s", *i);
 	}
+
+	std::io::printn("\n");
+
+	foreach (&i : arr)
+		increment(i);
+
+
+	foreach (i : arr)
+		io::printfn("item : %s", i);
+
 	return 0;
 }
